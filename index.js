@@ -14,20 +14,21 @@ let currentKey = `${today.getDate()}_${today.getMonth()}`;
 function getNDays(numberOfDays, period) {
     const startingDate = today;
     let datesArray = [];
-    let  daysCounter = 1;
-    const  dayNumber = 1000 * 60 * 60 * 24;
+    let daysCounter = 1;
+    const dayNumber = 1000 * 60 * 60 * 24;
     if (period === "after") {
-    while (daysCounter < numberOfDays + 1) {
-        let newDateAfterStarting = Number(startingDate) + (dayNumber * daysCounter);
-        datesArray.push(new Date(newDateAfterStarting));
-        daysCounter++;
-    }}
+        while (daysCounter < numberOfDays + 1) {
+            let newDateAfterStarting = Number(startingDate) + (dayNumber * daysCounter);
+            datesArray.push(new Date(newDateAfterStarting));
+            daysCounter++;
+        }
+    }
     else if (period === "before") {
         while (daysCounter < numberOfDays + 1) {
             let newDateBeforeStarting = Number(startingDate) - dayNumber * daysCounter;
             datesArray.unshift(new Date(newDateBeforeStarting));
             daysCounter++;
-        }    
+        }
     }
     return datesArray;
 };
@@ -62,33 +63,6 @@ function createElemWithId(el, id) {
     return elem
 };
 
-//format month names
-const formatMonth = (month) => ({
-         "0": "January",
-         "1": "February",
-         "2": "March",
-         "3": "April",
-         "4": "May",
-         "5": "June",
-         "6": "July",
-         "7": "August",
-         "8": "September",
-         "9": "October",
-         "10": "November",
-         "11": "December"
-}[month]);
-
-//format week days
-const formatWeekDay = (weekDay) => ({
-        "0": "Sun",
-        "1": "Mon",
-        "2": "Tue",
-        "3": "Wed",
-        "4": "Thu",
-        "5": "Fri",
-        "6": "Sat"
-}[weekDay]);
-
 //utilite for append
 function appendWithClass(appendTo, el, classes) {
     appendTo.append(el);
@@ -118,7 +92,8 @@ function onSlotsClick(e) {
     const arr = JSON.parse(localStorage.getItem(currentKey));
     const slotsList = Array.from(document.getElementsByClassName("slot"));
     if (!arr[+e.target.id].isBoocked) {
-    arr[+e.target.id].isBoocked = true;} else arr[+e.target.id].isBoocked = false;
+        arr[+e.target.id].isBoocked = true;
+    } else arr[+e.target.id].isBoocked = false;
     localStorage.setItem(currentKey, JSON.stringify(arr));
     slotsList.forEach((item) => {
         item.remove();
@@ -129,15 +104,15 @@ function onSlotsClick(e) {
 //initial values for local storage
 if (!localStorage.length) {
     days.forEach((item) => {
-        localStorage.setItem(`${new Date(item).getDate()}_${new Date(item).getMonth()}`,
-JSON.stringify([
-    {time: "10.00", movie: "some interesting movie", isBoocked: false},
-    {time: "12.00", movie: "some interesting movie", isBoocked: false},
-    {time: "14.00", movie: "some interesting movie", isBoocked: false},
-    {time: "16.00", movie: "some interesting movie", isBoocked: false},
-    {time: "18.00", movie: "some interesting movie", isBoocked: false},
-    {time: "20.00", movie: "some interesting movie", isBoocked: false}
-]));
+    localStorage.setItem(`${new Date(item).getDate()}_${new Date(item).getMonth()}`,
+    JSON.stringify([
+        { time: "10.00", movie: "some interesting movie", isBoocked: false },
+        { time: "12.00", movie: "some interesting movie", isBoocked: false },
+        { time: "14.00", movie: "some interesting movie", isBoocked: false },
+        { time: "16.00", movie: "some interesting movie", isBoocked: false },
+        { time: "18.00", movie: "some interesting movie", isBoocked: false },
+        { time: "20.00", movie: "some interesting movie", isBoocked: false }
+    ]));
     });
 };
 
